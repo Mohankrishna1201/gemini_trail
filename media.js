@@ -16,7 +16,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 app.use(cors({
-    origin: 'http://127.0.0.1:5500', // Replace with your frontend URL
+    origin: 'https://gemini-trail.vercel.app', // Replace with your frontend URL
     methods: ['GET', 'POST'], // Allow only GET and POST requests
     allowedHeaders: ['Content-Type'], // Allow only Content-Type header
 }));
