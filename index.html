@@ -1,18 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload CSV File</title>
 </head>
+<!--https://docs.google.com/spreadsheets/d/1pwEoUpZweJ7ib6-zhzPS-zljfWJp3OyxfT09nHufzL0/edit?usp=sharing-->
 
 <body>
-    <iframe style="width:80% ; height:100vw;"
-        src="https://docs.google.com/spreadsheets/d/1pwEoUpZweJ7ib6-zhzPS-zljfWJp3OyxfT09nHufzL0/edit?usp=sharing"></iframe>
+    <h2>Upload CSV File</h2>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="fileInput" name="file" accept=".csv" />
+        <button type="button" onclick="uploadFile()">Upload</button>
+        <h1 id="fileNameDisplay"></h1>
+        <h2>Provide GoogleSheet Link(If display needed!)</h2>
+        <input type="text" id="url" name="url" />
+    </form>
+    <iframe id="myIframe" style="width: 80%; height: 100vw; margin-top: 50px;" src=""></iframe>
+
+    <script>
+        const urlInput = document.getElementById('url');
+        const iframe = document.getElementById('myIframe');
+
+        // Add event listener to input field
+        urlInput.addEventListener('input', function () {
+            // Update the src attribute of the iframe with the value from the input
+            iframe.src = this.value;
+        });
+        async function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            if (!file) {
+                alert("Please select a file before uploading.");
+                return;
+            }
+            if (file) {
+                document.getElementById('fileNameDisplay').textContent = `Uploaded file: ${file.name}`;
+            }
+            const formData = new FormData();
+            formData.append('file', file);
+
+
+            const response = await fetch('http://localhost:8000/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) {
+                throw new Error(`Failed to upload file: ${response.status}`);
+            }
+
+            console.log('File uploaded successfully.');
+
+            // Display file name after successful upload
+
+
+            alert('File uploaded successfully.');
+        }
+
+    </script>
+
     <script type="text/javascript">
         (function (d, t) {
             var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
@@ -26,7 +74,6 @@
             v.src = "https://cdn.voiceflow.com/widget/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
         })(document, 'script');
     </script>
-    <script src="" async defer></script>
 </body>
 
 </html>
