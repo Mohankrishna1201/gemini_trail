@@ -13,6 +13,19 @@
 <body>
     <iframe style="width:80% ; height:100vw;"
         src="https://docs.google.com/spreadsheets/d/1pwEoUpZweJ7ib6-zhzPS-zljfWJp3OyxfT09nHufzL0/edit?usp=sharing"></iframe>
+    <script type="text/javascript">
+        (function (d, t) {
+            var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+            v.onload = function () {
+                window.voiceflow.chat.load({
+                    verify: { projectID: '66696c93ae00ef37b0c31bd8' },
+                    url: 'https://general-runtime.voiceflow.com',
+                    versionID: 'production'
+                });
+            }
+            v.src = "https://cdn.voiceflow.com/widget/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+        })(document, 'script');
+    </script>
     <script src="" async defer></script>
 </body>
 
